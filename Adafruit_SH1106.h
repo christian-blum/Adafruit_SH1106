@@ -21,8 +21,8 @@
  *
  */
 
-#ifndef _Adafruit_SH1106_KBV_H_
-#define _Adafruit_SH1106_KBV_H_
+#ifndef _Adafruit_SH1106_H_
+#define _Adafruit_SH1106_H_
 
 // ONE of the following three lines must be #defined:
 //#define SH1106_128_64 ///< DEPRECTAED: old way to specify 128x64 screen
@@ -117,24 +117,24 @@ typedef uint32_t PortMask;
     @brief  Class that stores state and functions for interacting with
             SSD1306 OLED displays.
 */
-class Adafruit_SH1106_kbv : public Adafruit_GFX {
+class Adafruit_SH1106 : public Adafruit_GFX {
 public:
   // NEW CONSTRUCTORS -- recommended for new projects
-  Adafruit_SH1106_kbv(uint8_t w, uint8_t h, TwoWire *twi = &Wire,
+  Adafruit_SH1106(uint8_t w, uint8_t h, TwoWire *twi = &Wire,
                    int8_t rst_pin = -1, uint32_t clkDuring = 400000UL,
                    uint32_t clkAfter = 100000UL);
-  Adafruit_SH1106_kbv(uint8_t w, uint8_t h, int8_t mosi_pin, int8_t sclk_pin,
+  Adafruit_SH1106(uint8_t w, uint8_t h, int8_t mosi_pin, int8_t sclk_pin,
                    int8_t dc_pin, int8_t rst_pin, int8_t cs_pin);
-  Adafruit_SH1106_kbv(uint8_t w, uint8_t h, SPIClass *spi, int8_t dc_pin,
+  Adafruit_SH1106(uint8_t w, uint8_t h, SPIClass *spi, int8_t dc_pin,
                    int8_t rst_pin, int8_t cs_pin, uint32_t bitrate = 8000000UL);
 
   // DEPRECATED CONSTRUCTORS - for back compatibility, avoid in new projects
-  Adafruit_SH1106_kbv(int8_t mosi_pin, int8_t sclk_pin, int8_t dc_pin,
+  Adafruit_SH1106(int8_t mosi_pin, int8_t sclk_pin, int8_t dc_pin,
                    int8_t rst_pin, int8_t cs_pin);
-  Adafruit_SH1106_kbv(int8_t dc_pin, int8_t rst_pin, int8_t cs_pin);
-  Adafruit_SH1106_kbv(int8_t rst_pin = -1);
+  Adafruit_SH1106(int8_t dc_pin, int8_t rst_pin, int8_t cs_pin);
+  Adafruit_SH1106(int8_t rst_pin = -1);
 
-  ~Adafruit_SH1106_kbv(void);
+  ~Adafruit_SH1106(void);
 
   bool begin(uint8_t switchvcc = SH1106_SWITCHCAPVCC, uint8_t i2caddr = 0,
              bool reset = true, bool periphBegin = true);
@@ -177,4 +177,4 @@ protected:
 #endif
 };
 
-#endif // _Adafruit_SH1106_KBV_H_
+#endif // _Adafruit_SH1106_H_

@@ -1,5 +1,5 @@
 /*!
- * @file Adafruit_SH1106_kbv.cpp
+ * @file Adafruit_SH1106.cpp
  *
  * @mainpage Arduino library for monochrome OLEDs based on SSD1306 drivers.
  *
@@ -50,7 +50,7 @@
 #include <util/delay.h>
 #endif
 
-#include "Adafruit_SH1106_kbv.h"
+#include "Adafruit_SH1106.h"
 #include "splash.h"
 #include <Adafruit_GFX.h>
 
@@ -164,11 +164,11 @@
             because other devices on the I2C bus might not be compatible
             with the faster rate. (Ignored if using pre-1.5.7 Arduino
             software, which operates I2C at a fixed 100 KHz.)
-    @return Adafruit_SH1106_kbv object.
+    @return Adafruit_SH1106 object.
     @note   Call the object's begin() function before use -- buffer
             allocation is performed there!
 */
-Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(uint8_t w, uint8_t h, TwoWire *twi,
+Adafruit_SH1106::Adafruit_SH1106(uint8_t w, uint8_t h, TwoWire *twi,
                                    int8_t rst_pin, uint32_t clkDuring,
                                    uint32_t clkAfter)
     : Adafruit_GFX(w, h), spi(NULL), wire(twi ? twi : &Wire), buffer(NULL),
@@ -203,11 +203,11 @@ Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(uint8_t w, uint8_t h, TwoWire *twi,
     @param  cs_pin
             Chip-select pin (using Arduino pin numbering) for sharing the
             bus with other devices. Active low.
-    @return Adafruit_SH1106_kbv object.
+    @return Adafruit_SH1106 object.
     @note   Call the object's begin() function before use -- buffer
             allocation is performed there!
 */
-Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(uint8_t w, uint8_t h, int8_t mosi_pin,
+Adafruit_SH1106::Adafruit_SH1106(uint8_t w, uint8_t h, int8_t mosi_pin,
                                    int8_t sclk_pin, int8_t dc_pin,
                                    int8_t rst_pin, int8_t cs_pin)
     : Adafruit_GFX(w, h), spi(NULL), wire(NULL), buffer(NULL),
@@ -236,11 +236,11 @@ Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(uint8_t w, uint8_t h, int8_t mosi_pin,
     @param  bitrate
             SPI clock rate for transfers to this display. Default if
             unspecified is 8000000UL (8 MHz).
-    @return Adafruit_SH1106_kbv object.
+    @return Adafruit_SH1106 object.
     @note   Call the object's begin() function before use -- buffer
             allocation is performed there!
 */
-Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(uint8_t w, uint8_t h, SPIClass *spi,
+Adafruit_SH1106::Adafruit_SH1106(uint8_t w, uint8_t h, SPIClass *spi,
                                    int8_t dc_pin, int8_t rst_pin, int8_t cs_pin,
                                    uint32_t bitrate)
     : Adafruit_GFX(w, h), spi(spi ? spi : &SPI), wire(NULL), buffer(NULL),
@@ -254,7 +254,7 @@ Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(uint8_t w, uint8_t h, SPIClass *spi,
     @brief  DEPRECATED constructor for SPI SSD1306 displays, using software
             (bitbang) SPI. Provided for older code to maintain compatibility
             with the current library. Screen size is determined by enabling
-            one of the SH1106_* size defines in Adafruit_SH1106_kbv.h. New
+            one of the SH1106_* size defines in Adafruit_SH1106.h. New
             code should NOT use this.
     @param  mosi_pin
             MOSI (master out, slave in) pin (using Arduino pin numbering).
@@ -272,11 +272,11 @@ Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(uint8_t w, uint8_t h, SPIClass *spi,
     @param  cs_pin
             Chip-select pin (using Arduino pin numbering) for sharing the
             bus with other devices. Active low.
-    @return Adafruit_SH1106_kbv object.
+    @return Adafruit_SH1106 object.
     @note   Call the object's begin() function before use -- buffer
             allocation is performed there!
 */
-Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(int8_t mosi_pin, int8_t sclk_pin,
+Adafruit_SH1106::Adafruit_SH1106(int8_t mosi_pin, int8_t sclk_pin,
                                    int8_t dc_pin, int8_t rst_pin, int8_t cs_pin)
     : Adafruit_GFX(SH1106_LCDWIDTH, SH1106_LCDHEIGHT), spi(NULL), wire(NULL),
       buffer(NULL), mosiPin(mosi_pin), clkPin(sclk_pin), dcPin(dc_pin),
@@ -286,7 +286,7 @@ Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(int8_t mosi_pin, int8_t sclk_pin,
     @brief  DEPRECATED constructor for SPI SSD1306 displays, using native
             hardware SPI. Provided for older code to maintain compatibility
             with the current library. Screen size is determined by enabling
-            one of the SH1106_* size defines in Adafruit_SH1106_kbv.h. New
+            one of the SH1106_* size defines in Adafruit_SH1106.h. New
             code should NOT use this. Only the primary SPI bus is supported,
             and bitrate is fixed at 8 MHz.
     @param  dc_pin
@@ -299,11 +299,11 @@ Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(int8_t mosi_pin, int8_t sclk_pin,
     @param  cs_pin
             Chip-select pin (using Arduino pin numbering) for sharing the
             bus with other devices. Active low.
-    @return Adafruit_SH1106_kbv object.
+    @return Adafruit_SH1106 object.
     @note   Call the object's begin() function before use -- buffer
             allocation is performed there!
 */
-Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(int8_t dc_pin, int8_t rst_pin, int8_t cs_pin)
+Adafruit_SH1106::Adafruit_SH1106(int8_t dc_pin, int8_t rst_pin, int8_t cs_pin)
     : Adafruit_GFX(SH1106_LCDWIDTH, SH1106_LCDHEIGHT), spi(&SPI), wire(NULL),
       buffer(NULL), mosiPin(-1), clkPin(-1), dcPin(dc_pin), csPin(cs_pin),
       rstPin(rst_pin) {
@@ -316,25 +316,25 @@ Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(int8_t dc_pin, int8_t rst_pin, int8_t c
     @brief  DEPRECATED constructor for I2C SSD1306 displays. Provided for
             older code to maintain compatibility with the current library.
             Screen size is determined by enabling one of the SH1106_* size
-            defines in Adafruit_SH1106_kbv.h. New code should NOT use this.
+            defines in Adafruit_SH1106.h. New code should NOT use this.
             Only the primary I2C bus is supported.
     @param  rst_pin
             Reset pin (using Arduino pin numbering), or -1 if not used
             (some displays might be wired to share the microcontroller's
             reset pin).
-    @return Adafruit_SH1106_kbv object.
+    @return Adafruit_SH1106 object.
     @note   Call the object's begin() function before use -- buffer
             allocation is performed there!
 */
-Adafruit_SH1106_kbv::Adafruit_SH1106_kbv(int8_t rst_pin)
+Adafruit_SH1106::Adafruit_SH1106(int8_t rst_pin)
     : Adafruit_GFX(SH1106_LCDWIDTH, SH1106_LCDHEIGHT), spi(NULL), wire(&Wire),
       buffer(NULL), mosiPin(-1), clkPin(-1), dcPin(-1), csPin(-1),
       rstPin(rst_pin) {}
 
 /*!
-    @brief  Destructor for Adafruit_SH1106_kbv object.
+    @brief  Destructor for Adafruit_SH1106 object.
 */
-Adafruit_SH1106_kbv::~Adafruit_SH1106_kbv(void) {
+Adafruit_SH1106::~Adafruit_SH1106(void) {
   if (buffer) {
     free(buffer);
     buffer = NULL;
@@ -345,7 +345,7 @@ Adafruit_SH1106_kbv::~Adafruit_SH1106_kbv(void) {
 
 // Issue single byte out SPI, either soft or hardware as appropriate.
 // SPI transaction/selection must be performed in calling function.
-inline void Adafruit_SH1106_kbv::SPIwrite(uint8_t d) {
+inline void Adafruit_SH1106::SPIwrite(uint8_t d) {
   if (spi) {
     (void)spi->transfer(d);
   } else {
@@ -370,7 +370,7 @@ inline void Adafruit_SH1106_kbv::SPIwrite(uint8_t d) {
 // Because command calls are often grouped, SPI transaction and selection
 // must be started/ended in calling function for efficiency.
 // This is a private function, not exposed (see sh1106_command() instead).
-void Adafruit_SH1106_kbv::sh1106_command1(uint8_t c) {
+void Adafruit_SH1106::sh1106_command1(uint8_t c) {
   if (wire) { // I2C
     wire->beginTransmission(i2caddr);
     WIRE_WRITE((uint8_t)0x00); // Co = 0, D/C = 0
@@ -384,7 +384,7 @@ void Adafruit_SH1106_kbv::sh1106_command1(uint8_t c) {
 
 // Issue list of commands to SSD1306, same rules as above re: transactions.
 // This is a private function, not exposed.
-void Adafruit_SH1106_kbv::sh1106_commandList(const uint8_t *c, uint8_t n) {
+void Adafruit_SH1106::sh1106_commandList(const uint8_t *c, uint8_t n) {
   if (wire) { // I2C
     wire->beginTransmission(i2caddr);
     WIRE_WRITE((uint8_t)0x00); // Co = 0, D/C = 0
@@ -417,7 +417,7 @@ void Adafruit_SH1106_kbv::sh1106_commandList(const uint8_t *c, uint8_t n) {
             Command to issue (0x00 to 0xFF, see datasheet).
     @return None (void).
 */
-void Adafruit_SH1106_kbv::sh1106_command(uint8_t c) {
+void Adafruit_SH1106::sh1106_command(uint8_t c) {
   TRANSACTION_START
   sh1106_command1(c);
   TRANSACTION_END
@@ -460,7 +460,7 @@ void Adafruit_SH1106_kbv::sh1106_command(uint8_t c) {
             proceeding.
     @note   MUST call this function before any drawing or updates!
 */
-bool Adafruit_SH1106_kbv::begin(uint8_t vcs, uint8_t addr, bool reset,
+bool Adafruit_SH1106::begin(uint8_t vcs, uint8_t addr, bool reset,
                              bool periphBegin) {
 
   if ((!buffer) && !(buffer = (uint8_t *)malloc(WIDTH * ((HEIGHT + 7) / 8))))
@@ -604,7 +604,7 @@ bool Adafruit_SH1106_kbv::begin(uint8_t vcs, uint8_t addr, bool reset,
             Follow up with a call to display(), or with other graphics
             commands as needed by one's own application.
 */
-void Adafruit_SH1106_kbv::drawPixel(int16_t x, int16_t y, uint16_t color) {
+void Adafruit_SH1106::drawPixel(int16_t x, int16_t y, uint16_t color) {
   if ((x >= 0) && (x < width()) && (y >= 0) && (y < height())) {
     // Pixel is in-bounds. Rotate coordinates if needed.
     switch (getRotation()) {
@@ -642,7 +642,7 @@ void Adafruit_SH1106_kbv::drawPixel(int16_t x, int16_t y, uint16_t color) {
             Follow up with a call to display(), or with other graphics
             commands as needed by one's own application.
 */
-void Adafruit_SH1106_kbv::clearDisplay(void) {
+void Adafruit_SH1106::clearDisplay(void) {
   memset(buffer, 0, WIDTH * ((HEIGHT + 7) / 8));
 }
 
@@ -662,7 +662,7 @@ void Adafruit_SH1106_kbv::clearDisplay(void) {
             Follow up with a call to display(), or with other graphics
             commands as needed by one's own application.
 */
-void Adafruit_SH1106_kbv::drawFastHLine(int16_t x, int16_t y, int16_t w,
+void Adafruit_SH1106::drawFastHLine(int16_t x, int16_t y, int16_t w,
                                      uint16_t color) {
   bool bSwap = false;
   switch (rotation) {
@@ -694,7 +694,7 @@ void Adafruit_SH1106_kbv::drawFastHLine(int16_t x, int16_t y, int16_t w,
     drawFastHLineInternal(x, y, w, color);
 }
 
-void Adafruit_SH1106_kbv::drawFastHLineInternal(int16_t x, int16_t y, int16_t w,
+void Adafruit_SH1106::drawFastHLineInternal(int16_t x, int16_t y, int16_t w,
                                              uint16_t color) {
 
   if ((y >= 0) && (y < HEIGHT)) { // Y coord in bounds?
@@ -745,7 +745,7 @@ void Adafruit_SH1106_kbv::drawFastHLineInternal(int16_t x, int16_t y, int16_t w,
             Follow up with a call to display(), or with other graphics
             commands as needed by one's own application.
 */
-void Adafruit_SH1106_kbv::drawFastVLine(int16_t x, int16_t y, int16_t h,
+void Adafruit_SH1106::drawFastVLine(int16_t x, int16_t y, int16_t h,
                                      uint16_t color) {
   bool bSwap = false;
   switch (rotation) {
@@ -777,7 +777,7 @@ void Adafruit_SH1106_kbv::drawFastVLine(int16_t x, int16_t y, int16_t h,
     drawFastVLineInternal(x, y, h, color);
 }
 
-void Adafruit_SH1106_kbv::drawFastVLineInternal(int16_t x, int16_t __y,
+void Adafruit_SH1106::drawFastVLineInternal(int16_t x, int16_t __y,
                                              int16_t __h, uint16_t color) {
 
   if ((x >= 0) && (x < WIDTH)) { // X coord in bounds?
@@ -884,7 +884,7 @@ void Adafruit_SH1106_kbv::drawFastVLineInternal(int16_t x, int16_t __y,
     @note   Reads from buffer contents; may not reflect current contents of
             screen if display() has not been called.
 */
-bool Adafruit_SH1106_kbv::getPixel(int16_t x, int16_t y) {
+bool Adafruit_SH1106::getPixel(int16_t x, int16_t y) {
   if ((x >= 0) && (x < width()) && (y >= 0) && (y < height())) {
     // Pixel is in-bounds. Rotate coordinates if needed.
     switch (getRotation()) {
@@ -911,7 +911,7 @@ bool Adafruit_SH1106_kbv::getPixel(int16_t x, int16_t y) {
     @return Pointer to an unsigned 8-bit array, column-major, columns padded
             to full byte boundary if needed.
 */
-uint8_t *Adafruit_SH1106_kbv::getBuffer(void) { return buffer; }
+uint8_t *Adafruit_SH1106::getBuffer(void) { return buffer; }
 
 // REFRESH DISPLAY ---------------------------------------------------------
 
@@ -922,7 +922,7 @@ uint8_t *Adafruit_SH1106_kbv::getBuffer(void) { return buffer; }
             called. Call after each graphics command, or after a whole set
             of graphics commands, as best needed by one's own application.
 */
-void Adafruit_SH1106_kbv::display(void) {
+void Adafruit_SH1106::display(void) {
     TRANSACTION_START
 #if defined(ESP8266)
     yield();
@@ -975,7 +975,7 @@ void Adafruit_SH1106_kbv::display(void) {
             enabled, drawing SH1106_BLACK (value 0) pixels will actually draw
    white, SH1106_WHITE (value 1) will draw black.
 */
-void Adafruit_SH1106_kbv::invertDisplay(bool i) {
+void Adafruit_SH1106::invertDisplay(bool i) {
   TRANSACTION_START
   sh1106_command1(i ? SH1106_INVERTDISPLAY : SH1106_NORMALDISPLAY);
   TRANSACTION_END
@@ -989,7 +989,7 @@ void Adafruit_SH1106_kbv::invertDisplay(bool i) {
     @note   This has an immediate effect on the display, no need to call the
             display() function -- buffer contents are not changed.
 */
-void Adafruit_SH1106_kbv::dim(bool dim) {
+void Adafruit_SH1106::dim(bool dim) {
   // the range of contrast to too small to be really useful
   // it is useful to dim the display
   TRANSACTION_START
