@@ -138,7 +138,7 @@ public:
 
   bool begin(uint8_t switchvcc = SH1106_SWITCHCAPVCC, uint8_t i2caddr = 0,
              bool reset = true, bool periphBegin = true);
-  void display(void);
+  void display(int8_t xoffs = 2);
   void clearDisplay(void);
   void invertDisplay(bool i);
   void dim(bool dim);

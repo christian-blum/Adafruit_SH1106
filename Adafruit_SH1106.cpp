@@ -922,7 +922,7 @@ uint8_t *Adafruit_SH1106::getBuffer(void) { return buffer; }
             called. Call after each graphics command, or after a whole set
             of graphics commands, as best needed by one's own application.
 */
-void Adafruit_SH1106::display(void) {
+void Adafruit_SH1106::display(int8_t xoffs) {
     TRANSACTION_START
 #if defined(ESP8266)
     yield();
@@ -930,7 +930,7 @@ void Adafruit_SH1106::display(void) {
     uint8_t *ptr = buffer;
     for (uint8_t page = 0; page < (HEIGHT + 7) / 8; page++) {
         sh1106_command1(0xB0 + page);           // Set PAGEADS
-        sh1106_command1(SH1106_SETLOWCOLUMN + 2);
+        sh1106_command1(SH1106_SETLOWCOLUMN + xoffs);
         sh1106_command1(SH1106_SETHIGHCOLUMN);
         uint16_t count = WIDTH;
 
